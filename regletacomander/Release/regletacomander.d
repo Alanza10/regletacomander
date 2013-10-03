@@ -1,0 +1,1 @@
+regletacomander.d: ../regletacomander.c
