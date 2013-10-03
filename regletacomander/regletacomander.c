@@ -101,7 +101,7 @@ int main(int argc, char **argv)
     struct sigaction sa;
     static char status_str[] = "S1111111111111";
     static char help_str[] =
-        "Tasks: begin with -t\r\n R[E,A][1-4](reles)\r\n T (sync time)\r\n P[1-4]HHMMSSHHMMSS (programar)\r\n";
+        "Tasks: only 1 \r\n -r[E,A][1-4](reles)\r\n -t (sync time)\r\n -p[1-4]HHMMSSHHMMSS (programar)\r\n";
 
     if ( argc == 1 ){
     	goto usage;
@@ -129,7 +129,19 @@ int main(int argc, char **argv)
         }
         else if ( *p == 't' )
         {
-            command = ++p;
+            command = p;
+            if ( *command == '\0' )
+                goto usage;
+        }
+        else if ( *p == 'r' )
+        {
+            command = p;
+            if ( *command == '\0' )
+                goto usage;
+        }
+        else if ( *p == 'p' )
+        {
+            command = p;
             if ( *command == '\0' )
                 goto usage;
         }
@@ -187,6 +199,24 @@ int main(int argc, char **argv)
     case 0:
         close(1); /* stdout not needed */
 
+        switch(command[0])
+        {
+        	case 't':
+                sec = time(NULL);
+                sec= sec + (60*60*TZ_ADJUST);
+                (void)sprintf(time_msg,"%ld",sec);
+            	token = (char)TIME_HEADER;
+            	extra = (char)COMPLETE_CHAR;
+            	write(fd,&token,1);
+            	write(fd, time_msg, strlen(time_msg));
+            	write(fd,&extra,1);
+            	write(fd,&extra,1);
+            	write(fd,&extra,1);
+        		break;
+        	default:
+        		break;
+        }
+        /*
         token = (char)RELAY_HEADER;
     	extra = (char)COMPLETE_CHAR;
     	mode=(char)RELAY_ON;
@@ -205,7 +235,7 @@ int main(int argc, char **argv)
     	write(fd,&extra,1);
     	write(fd,&extra,1);
     	write(fd,&extra,1);
-
+*/
     	tcsetattr(fd,TCSANOW,&oldsertio);
         tcsetattr(0,TCSANOW,&oldstdtio);
         close(fd);
