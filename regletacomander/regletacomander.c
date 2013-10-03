@@ -190,7 +190,9 @@ int main(int argc, char **argv)
 
 
     printf("%s\n\r", command);
-
+    close(0);
+    close(1);
+    close(fd);
     return 0;
 
  usage:
