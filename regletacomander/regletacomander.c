@@ -121,16 +121,15 @@ int main(int argc, char **argv)
                 goto usage;
             }
         }
-        if ( *p == 's' )
-        {
-            command = p;
-            if ( *command == '\0' )
-                goto usage;
-        }
         else if ( *p == 'd' )
         {
             sername = ++p;
             if ( *sername == '\0' )
+                goto usage;
+        }else  if ( *p == 's' )
+        {
+            command = p;
+            if ( *command == '\0' )
                 goto usage;
         }
         else if ( *p == 't' )
@@ -207,8 +206,8 @@ int main(int argc, char **argv)
 
         switch( command[0] )
         {
-    	case 's':
-    		write(fd, status_str, strlen(status_str));
+    		case 's':
+    			write(fd, status_str, strlen(status_str));
     		break;
         	case 't':
                 sec = time(NULL);
