@@ -207,11 +207,12 @@ int main(int argc, char **argv)
 	write(fd,&extra,1);
 	write(fd,&extra,1);
 
-    tcsetattr(fd,TCSANOW,&oldsertio);
-    close(fd);
+
     write(1, end_str, strlen(end_str));
-    close(1);
-    return 0;
+    tcsetattr(fd,TCSANOW,&oldsertio);
+    tcsetattr(0,TCSANOW,&oldstdtio);
+    close(fd);
+    exit(0);
 
  usage:
     printf("regletacomander [-b<baudrate>] [-d<devicename>] -ttask\n");
