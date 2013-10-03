@@ -188,8 +188,8 @@ int main(int argc, char **argv)
 
     token = (char)RELAY_HEADER;
 	extra = (char)COMPLETE_CHAR;
-	mode=(char)"A";
-	relay=(char)"1";
+	mode=(char)RELAY_OFF;
+	relay=(char)RELAY_1;
 	write(fd,&token,1);
 	write(fd,&mode,1);
 	write(fd,&relay, 1);
