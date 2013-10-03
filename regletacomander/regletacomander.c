@@ -190,7 +190,7 @@ int main(int argc, char **argv)
 
     token = (char)RELAY_HEADER;
 	extra = (char)COMPLETE_CHAR;
-	mode=(char)RELAY_OFF;
+	mode=(char)RELAY_ON;
 	relay=(char)RELAY_1;
 	write(fd,&token,1);
 	write(fd,&mode,1);
