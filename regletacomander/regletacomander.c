@@ -186,6 +186,8 @@ int main(int argc, char **argv)
     newstdtio.c_cc[VTIME]=0;
     tcsetattr(0,TCSANOW,&newstdtio);
 
+    tcsetattr(fd,TCSANOW,&oldsertio);
+    close(fd);
     printf("%s\n\r", command);
     printf("Adios\n", command);
 
