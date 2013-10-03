@@ -275,7 +275,7 @@ int main(int argc, char **argv)
         close(fd);
         exit(-1);
     default:
-        close(0); /* stdin not needed */
+        //close(0); /* stdin not needed */
         sa.sa_handler = child_handler;
         sa.sa_flags = 0;
         sigaction(SIGCHLD,&sa,NULL); /* handle dying child */
