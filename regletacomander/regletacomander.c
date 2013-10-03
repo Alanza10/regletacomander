@@ -101,7 +101,7 @@ int main(int argc, char **argv)
     struct sigaction sa;
     static char status_str[] = "S1111111111111";
     static char help_str[] =
-        "Tasks: only 1 \r\n -r[E,A][1-4](reles)\r\n -t (sync time)\r\n -p[1-4]HHMMSSHHMMSS (programar)\r\n";
+        "Tasks: only 1\r\n -s status (show in controlregleta) \r\n -r[E,A][1-4](reles)\r\n -t (sync time)\r\n -p[1-4]HHMMSSHHMMSS (programar)\r\n";
 
     if ( argc == 1 ){
     	goto usage;
@@ -201,6 +201,9 @@ int main(int argc, char **argv)
 
         switch( command[0] )
         {
+    	case 's':
+    		write(fd, status_str, strlen(status_str));
+    		break;
         	case 't':
                 sec = time(NULL);
                 sec= sec + (60*60*TZ_ADJUST);
