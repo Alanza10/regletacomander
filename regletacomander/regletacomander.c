@@ -190,8 +190,8 @@ int main(int argc, char **argv)
 
 
     printf("%s\n\r", command);
-    close(0);
-    close(1);
+    tcsetattr(fd,TCSANOW,&oldsertio);
+    tcsetattr(0,TCSANOW,&oldstdtio);
     close(fd);
     return 0;
 
