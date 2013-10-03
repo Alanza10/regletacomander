@@ -186,33 +186,60 @@ int main(int argc, char **argv)
     newstdtio.c_cc[VTIME]=0;
     tcsetattr(0,TCSANOW,&newstdtio);
 
+    switch ( fork() )
+    {
+    case 0:
+        close(1); /* stdout not needed */
+
+        token = (char)RELAY_HEADER;
+    	extra = (char)COMPLETE_CHAR;
+    	mode=(char)RELAY_ON;
+    	relay=(char)RELAY_1;
+    	write(fd,&token,1);
+    	write(fd,&mode,1);
+    	write(fd,&relay, 1);
+    	write(fd,&extra,1);
+    	write(fd,&extra,1);
+    	write(fd,&extra,1);
+    	write(fd,&extra,1);
+    	write(fd,&extra,1);
+    	write(fd,&extra,1);
+    	write(fd,&extra,1);
+    	write(fd,&extra,1);
+    	write(fd,&extra,1);
+    	write(fd,&extra,1);
+    	write(fd,&extra,1);
+
+    	tcsetattr(fd,TCSANOW,&oldsertio);
+        tcsetattr(0,TCSANOW,&oldstdtio);
+        close(fd);
+        exit(0); /* will send a SIGCHLD to the parent */
+        break;
+    case -1:
+        perror("fork");
+        tcsetattr(fd,TCSANOW,&oldsertio);
+        close(fd);
+        exit(-1);
+    default:
+        write(1, start_str, strlen(start_str));
+        close(0); /* stdin not needed */
+        sa.sa_handler = child_handler;
+        sa.sa_flags = 0;
+        sigaction(SIGCHLD,&sa,NULL); /* handle dying child */
+        while ( !stop )
+        {
+        }
+        wait(NULL); /* wait for child to die or it will become a zombie */
+        write(1, end_str, strlen(end_str));
+        break;
+    }
+
     close(0);
-
-    token = (char)RELAY_HEADER;
-	extra = (char)COMPLETE_CHAR;
-	mode=(char)RELAY_ON;
-	relay=(char)RELAY_1;
-	write(fd,&token,1);
-	write(fd,&mode,1);
-	write(fd,&relay, 1);
-	write(fd,&extra,1);
-	write(fd,&extra,1);
-	write(fd,&extra,1);
-	write(fd,&extra,1);
-	write(fd,&extra,1);
-	write(fd,&extra,1);
-	write(fd,&extra,1);
-	write(fd,&extra,1);
-	write(fd,&extra,1);
-	write(fd,&extra,1);
-	write(fd,&extra,1);
-
-
-    write(1, end_str, strlen(end_str));
-    tcsetattr(fd,TCSANOW,&oldsertio);
-    tcsetattr(0,TCSANOW,&oldstdtio);
+    close(1);
     close(fd);
-    exit(0);
+    return 0;
+
+
 
  usage:
     printf("regletacomander [-b<baudrate>] [-d<devicename>] -ttask\n");
