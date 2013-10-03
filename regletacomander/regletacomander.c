@@ -199,7 +199,7 @@ int main(int argc, char **argv)
     case 0:
         close(1); /* stdout not needed */
 
-        switch(command[0])
+        switch( command[0] )
         {
         	case 't':
                 sec = time(NULL);
@@ -213,30 +213,35 @@ int main(int argc, char **argv)
             	write(fd,&extra,1);
             	write(fd,&extra,1);
         		break;
+        	case 'r':
+        		if( command[1] == RELAY_ON ){
+                	mode=(char)RELAY_ON;
+        		}else{
+                	mode=(char)RELAY_OFF;
+        		}
+                token = (char)RELAY_HEADER;
+            	extra = (char)COMPLETE_CHAR;
+            	relay=(char)command[2];
+
+            	write(fd,&token,1);
+            	write(fd,&mode,1);
+            	write(fd,&relay, 1);
+            	write(fd,&extra,1);
+            	write(fd,&extra,1);
+            	write(fd,&extra,1);
+            	write(fd,&extra,1);
+            	write(fd,&extra,1);
+            	write(fd,&extra,1);
+            	write(fd,&extra,1);
+            	write(fd,&extra,1);
+            	write(fd,&extra,1);
+            	write(fd,&extra,1);
+            	write(fd,&extra,1);
+            	break;
         	default:
         		break;
         }
-        /*
-        token = (char)RELAY_HEADER;
-    	extra = (char)COMPLETE_CHAR;
-    	mode=(char)RELAY_ON;
-    	relay=(char)RELAY_1;
-    	write(fd,&token,1);
-    	write(fd,&mode,1);
-    	write(fd,&relay, 1);
-    	write(fd,&extra,1);
-    	write(fd,&extra,1);
-    	write(fd,&extra,1);
-    	write(fd,&extra,1);
-    	write(fd,&extra,1);
-    	write(fd,&extra,1);
-    	write(fd,&extra,1);
-    	write(fd,&extra,1);
-    	write(fd,&extra,1);
-    	write(fd,&extra,1);
-    	write(fd,&extra,1);
-*/
-    	tcsetattr(fd,TCSANOW,&oldsertio);
+ 	tcsetattr(fd,TCSANOW,&oldsertio);
         tcsetattr(0,TCSANOW,&oldstdtio);
         close(fd);
         exit(0); /* will send a SIGCHLD to the parent */
