@@ -123,7 +123,9 @@ int main(int argc, char **argv)
         }
         if ( *p == 's' )
         {
-
+            command = p;
+            if ( *command == '\0' )
+                goto usage;
         }
         else if ( *p == 'd' )
         {
