@@ -200,7 +200,7 @@ int main(int argc, char **argv)
     printf("Default baud rate: %d\n", DEFAULT_BAUDRATE);
     printf("Default device: %s\n", DEFAULT_SERDEVICE);
     printf("%s", help_str);
-    printf("Example: regletacomander -b9600 -d/dev/tty t-RE1\n\r");
+    printf("Example: regletacomander -b9600 -d/dev/tty -tRE1\n\r");
     return 1;
 }
 
