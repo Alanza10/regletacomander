@@ -190,10 +190,8 @@ int main(int argc, char **argv)
 
 
     printf("%s\n\r", command);
-    tcsetattr(fd,TCSANOW,&oldsertio);
-    tcsetattr(0,TCSANOW,&oldstdtio);
-    close(fd);
-    return 0;
+    printf("Adios", command);
+
 
  usage:
     printf("regletacomander [-b<baudrate>] [-d<devicename>] -ttask\n");
