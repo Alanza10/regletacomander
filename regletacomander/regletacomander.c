@@ -202,7 +202,7 @@ int main(int argc, char **argv)
     switch ( fork() )
     {
     case 0:
-        close(1); /* stdout not needed */
+        //close(1); /* stdout not needed */
 
         switch( command[0] )
         {
