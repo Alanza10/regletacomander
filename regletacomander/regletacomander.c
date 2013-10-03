@@ -187,12 +187,11 @@ int main(int argc, char **argv)
     tcsetattr(0,TCSANOW,&newstdtio);
 
     tcsetattr(fd,TCSANOW,&oldsertio);
-    close(0);
-    close(1);
     close(fd);
     printf("%s\n\r", command);
     printf("Adios\n", command);
-
+    close(0);
+    close(1);
     return 0;
 
  usage:
