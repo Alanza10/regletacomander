@@ -100,10 +100,6 @@ int main(int argc, char **argv)
     struct termios   oldsertio, newsertio, oldstdtio, newstdtio;
     struct sigaction sa;
     static char status_str[] = "S1111111111111";
-    static char start_str[] =
-        "************ CONSOLA REGLETA: AYUDA ? | CTRL-] SALIR ********\r\n";
-    static char end_str[] =
-        "\n************ SALIR DE CONSOLA *****************\n";
     static char help_str[] =
         "Tasks: begin with -t\r\n R[E,A][1-4](reles)\r\n T (sync time)\r\n P[1-4]HHMMSSHHMMSS (programar)\r\n";
 
@@ -193,7 +189,7 @@ int main(int argc, char **argv)
 
         token = (char)RELAY_HEADER;
     	extra = (char)COMPLETE_CHAR;
-    	mode=(char)RELAY_ON;
+    	mode=(char)RELAY_OFF;
     	relay=(char)RELAY_1;
     	write(fd,&token,1);
     	write(fd,&mode,1);
@@ -221,7 +217,6 @@ int main(int argc, char **argv)
         close(fd);
         exit(-1);
     default:
-        write(1, start_str, strlen(start_str));
         close(0); /* stdin not needed */
         sa.sa_handler = child_handler;
         sa.sa_flags = 0;
@@ -230,7 +225,6 @@ int main(int argc, char **argv)
         {
         }
         wait(NULL); /* wait for child to die or it will become a zombie */
-        write(1, end_str, strlen(end_str));
         break;
     }
 
