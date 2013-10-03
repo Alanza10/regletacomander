@@ -222,22 +222,37 @@ int main(int argc, char **argv)
                 token = (char)RELAY_HEADER;
             	extra = (char)COMPLETE_CHAR;
             	relay=(char)command[2];
-
-            	write(fd,&token,1);
-            	write(fd,&mode,1);
-            	write(fd,&relay, 1);
-            	write(fd,&extra,1);
-            	write(fd,&extra,1);
-            	write(fd,&extra,1);
-            	write(fd,&extra,1);
-            	write(fd,&extra,1);
-            	write(fd,&extra,1);
-            	write(fd,&extra,1);
-            	write(fd,&extra,1);
-            	write(fd,&extra,1);
-            	write(fd,&extra,1);
-            	write(fd,&extra,1);
+            	if(relay==RELAY_1 || relay==RELAY_2 || relay==RELAY_3 || relay==RELAY_4 ){
+					write(fd,&token,1);
+					write(fd,&mode,1);
+					write(fd,&relay, 1);
+					write(fd,&extra,1);
+					write(fd,&extra,1);
+					write(fd,&extra,1);
+					write(fd,&extra,1);
+					write(fd,&extra,1);
+					write(fd,&extra,1);
+					write(fd,&extra,1);
+					write(fd,&extra,1);
+					write(fd,&extra,1);
+					write(fd,&extra,1);
+					write(fd,&extra,1);
+            	}
             	break;
+        	case 'p':
+            	token= (char)PROG_HEADER;
+            	relay=(char)command[1];
+            	for(i=0;i<=strlen(prog_time)-1;i++){
+            		prog_time[i]=command[i+2];
+            	}
+				if(relay==RELAY_1 || relay==RELAY_2 || relay==RELAY_3 || relay==RELAY_4 ){
+						write(fd,&token,1);
+						write(fd,&relay,1);
+						write(fd,prog_time,strlen(prog_time));
+			     }
+
+
+        		break;
         	default:
         		break;
         }
