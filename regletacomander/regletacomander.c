@@ -121,6 +121,10 @@ int main(int argc, char **argv)
                 goto usage;
             }
         }
+        if ( *p == 's' )
+        {
+
+        }
         else if ( *p == 'd' )
         {
             sername = ++p;
