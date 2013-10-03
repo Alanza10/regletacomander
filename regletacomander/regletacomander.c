@@ -216,7 +216,7 @@ int main(int argc, char **argv)
         	case 'r':
         		if( command[1] == RELAY_ON ){
                 	mode=(char)RELAY_ON;
-        		}else if( command[1] == RELAY_ON ){
+        		}else if( command[1] == RELAY_OFF ){
                 	mode=(char)RELAY_OFF;
         		}
                 token = (char)RELAY_HEADER;
