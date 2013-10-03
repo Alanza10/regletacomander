@@ -245,6 +245,7 @@ int main(int argc, char **argv)
 					write(fd,&extra,1);
 					write(fd,&extra,1);
 					write(fd,&extra,1);
+
             	}
             	break;
         	case 'p':
@@ -258,8 +259,6 @@ int main(int argc, char **argv)
 						write(fd,&relay,1);
 						write(fd,prog_time,strlen(prog_time));
 			     }
-
-
         		break;
         	default:
         		break;
