@@ -188,8 +188,7 @@ int main(int argc, char **argv)
 
     tcsetattr(fd,TCSANOW,&oldsertio);
     close(fd);
-    printf("%s\n\r", command);
-    printf("Adios\n", command);
+    printf("Adios\n");
     close(0);
     close(1);
     return 0;
