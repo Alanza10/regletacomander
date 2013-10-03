@@ -186,6 +186,25 @@ int main(int argc, char **argv)
     newstdtio.c_cc[VTIME]=0;
     tcsetattr(0,TCSANOW,&newstdtio);
 
+    token = (char)RELAY_HEADER;
+	extra = (char)COMPLETE_CHAR;
+	mode=(char)"A";
+	relay=(char)"1";
+	write(fd,&token,1);
+	write(fd,&mode,1);
+	write(fd,&relay, 1);
+	write(fd,&extra,1);
+	write(fd,&extra,1);
+	write(fd,&extra,1);
+	write(fd,&extra,1);
+	write(fd,&extra,1);
+	write(fd,&extra,1);
+	write(fd,&extra,1);
+	write(fd,&extra,1);
+	write(fd,&extra,1);
+	write(fd,&extra,1);
+	write(fd,&extra,1);
+
     tcsetattr(fd,TCSANOW,&oldsertio);
     close(fd);
     printf("Adios\n");
@@ -198,7 +217,7 @@ int main(int argc, char **argv)
     printf("Default baud rate: %d\n", DEFAULT_BAUDRATE);
     printf("Default device: %s\n", DEFAULT_SERDEVICE);
     printf("%s", help_str);
-    printf("Example: regletacomander -b9600 -d/dev/tty -tRE1\n\r");
+    printf("Example: regletacomander -b57600 -d/dev/ttyAMA0 -tRE1\n\r");
     return 1;
 }
 
