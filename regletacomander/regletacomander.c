@@ -141,59 +141,11 @@ int main(int argc, char **argv)
             goto usage;
     }
 
-    /* Not a controlling tty: CTRL-C shouldn't kill us. */
-    fd = open(sername, O_RDWR | O_NOCTTY);
-    if ( fd < 0 )
-    {
-        perror(sername);
-        exit(-1);
-    }
-
-    tcgetattr(fd, &oldsertio); /* save current modem settings */
-
-    /*
-     * 8 data, no parity, 1 stop bit. Ignore modem control lines. Enable
-     * receive. Set appropriate baud rate. NO HARDWARE FLOW CONTROL!
-     */
-    newsertio.c_cflag = cooked_baud | CS8 | CLOCAL | CREAD;
-
-    /* Raw input. Ignore errors and breaks. */
-    newsertio.c_iflag = IGNBRK | IGNPAR;
-
-    /* Raw output. */
-    newsertio.c_oflag = OPOST;
-
-    /* No echo and no signals. */
-    newsertio.c_lflag = 0;
-
-    /* blocking read until 1 char arrives */
-    newsertio.c_cc[VMIN]=1;
-    newsertio.c_cc[VTIME]=0;
-
-    /* now clean the modem line and activate the settings for modem */
-    tcflush(fd, TCIFLUSH);
-    tcsetattr(fd,TCSANOW,&newsertio);
-
-    /* next stop echo and buffering for stdin */
-    tcgetattr(0,&oldstdtio);
-    tcgetattr(0,&newstdtio); /* get working stdtio */
-    newstdtio.c_iflag &= ~(BRKINT | ICRNL | INPCK | ISTRIP | IXON);
-    newstdtio.c_oflag &= ~OPOST;
-    newstdtio.c_cflag &= ~(CSIZE | PARENB);
-    newstdtio.c_cflag |= CS8;
-    newstdtio.c_lflag &= ~(ECHO | ICANON | IEXTEN | ISIG);
-    newstdtio.c_cc[VMIN]=1;
-    newstdtio.c_cc[VTIME]=0;
-    tcsetattr(0,TCSANOW,&newstdtio);
-
-    /* Terminal settings done: now execute commands. */
 
 
     printf("%s\n\r", command);
-    printf("Adios", command);
-    tcsetattr(fd,TCSANOW,&oldsertio);
-    tcsetattr(0,TCSANOW,&oldstdtio);
-    close(fd);
+    printf("Adios\n", command);
+
     return 0;
 
  usage:
