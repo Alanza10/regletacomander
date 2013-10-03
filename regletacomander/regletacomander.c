@@ -186,6 +186,8 @@ int main(int argc, char **argv)
     newstdtio.c_cc[VTIME]=0;
     tcsetattr(0,TCSANOW,&newstdtio);
 
+    close(0);
+
     token = (char)RELAY_HEADER;
 	extra = (char)COMPLETE_CHAR;
 	mode=(char)RELAY_OFF;
@@ -207,8 +209,7 @@ int main(int argc, char **argv)
 
     tcsetattr(fd,TCSANOW,&oldsertio);
     close(fd);
-    printf("Adios\n");
-    close(0);
+    write(1, end_str, strlen(end_str));
     close(1);
     return 0;
 
