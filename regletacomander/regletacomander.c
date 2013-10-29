@@ -45,7 +45,7 @@
 #define RELAY_COUNT 4
 #define TIME_REQUEST  '\a' //7 ASCII code BELL in C
 #define COMPLETE_CHAR 'X'
-#define TZ_ADJUST +2
+#define TZ_ADJUST +1
 #define RELAY_1 '1'
 #define RELAY_2 '2'
 #define RELAY_3 '3'
