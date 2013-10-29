@@ -56,6 +56,7 @@
 #define DEFAULT_SERDEVICE  "/dev/ttyAMA0"
 #define ENDMINITERM        0x1d
 
+
 volatile int stop = 0;
 
 void child_handler(int s)
