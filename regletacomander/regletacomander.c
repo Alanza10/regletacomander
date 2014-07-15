@@ -134,6 +134,12 @@ int main(int argc, char **argv)
             if ( *command == '\0' )
                 goto usage;
         }
+        else  if ( *p == 'w' )
+                {
+                    command = p;
+                    if ( *command == '\0' )
+                        goto usage;
+                }
         else if ( *p == 't' )
         {
             command = p;
